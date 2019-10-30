@@ -1,0 +1,15 @@
+{
+  "name": "account",
+  "version": "1.0.0",
+  "description": "sample serverless project",
+  "main": "none",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "parimal.padture",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.533.0",
+    "uuid": "^3.3.3"
+  }
+}

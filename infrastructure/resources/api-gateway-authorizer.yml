@@ -1,0 +1,20 @@
+Resources:
+  CognitoAuthorizer: # using this as authorizer for all endpoints
+    Type: AWS::ApiGateway::Authorizer
+    Properties:
+      Name: CognitoAuthorizer
+      AuthorizerResultTtlInSeconds: 300
+      IdentitySource: method.request.header.Authorization
+      # IdentityValidationExpression: Bearer (.*)
+      ProviderARNs:
+        - Fn::GetAtt: [ CognitoUserPool, "Arn" ]
+      RestApiId:
+        'Fn::ImportValue': ApiGateway-restApiId
+      Type: COGNITO_USER_POOLS
+
+Outputs:
+  apiGatewayAuthorizerId:
+    Value:
+      Ref: CognitoAuthorizer
+    Export:
+      Name: apiGateway-authorizerId

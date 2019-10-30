@@ -1,0 +1,39 @@
+getAccountList:
+  handler: handler.getAccountList
+  events:
+    - http:
+        path: getaccountlist
+        method: get
+        cors: true
+        authorizer:
+          type: COGNITO_USER_POOLS
+          authorizerId: 
+            'Fn::ImportValue': apiGateway-authorizerId
+getAccount:
+  handler: handler.getAccount
+  events:
+    - http:
+        path: getaccount/{id}
+        method: get
+        cors: true
+createAccount:
+  handler: handler.createAccount
+  events:
+    - http:
+        path: createaccount
+        method: post
+        cors: true
+updateAccount:
+  handler: handler.updateAccount
+  events:
+    - http:
+        path: updateaccount/{id}
+        method: put
+        cors: true
+deleteAccount:
+  handler: handler.deleteAccount
+  events:
+    - http:
+        path: deleteaccount/{id}
+        method: delete
+        cors: true

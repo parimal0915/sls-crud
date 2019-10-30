@@ -1,0 +1,19 @@
+Resources:
+  ServerlessApiGateway:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: serverlessApiGateway
+
+Outputs:
+  apiGatewayRestApiId:
+    Value:
+      Ref: ServerlessApiGateway
+    Export:
+      Name: ApiGateway-restApiId
+  apiGatewayRestApiRootResourceId:
+    Value:
+      Fn::GetAtt:
+        - ServerlessApiGateway
+        - RootResourceId
+    Export:
+      Name: ApiGateway-rootResourceId

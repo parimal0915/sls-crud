@@ -1,0 +1,36 @@
+
+service: account
+
+
+frameworkVersion: '1.41.1'
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: us-east-1
+  environment: ${file(../serverless.env.yml)}
+  apiGateway:
+    restApiId:
+      'Fn::ImportValue': ApiGateway-restApiId
+    restApiRootResourceId:
+      'Fn::ImportValue': ApiGateway-rootResourceId
+    
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan  
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ACCOUNT_DYNAMODB_TABLE}"
+      
+functions: 
+  # lambda functions
+  - ${file(serverless.functions.yml)}  
+
+resources: 
+  # DynamoDB
+  - ${file(resources/dynamodb-table.yml)}
+  
