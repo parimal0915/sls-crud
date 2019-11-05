@@ -1,8 +1,8 @@
 {
   "service": {
-    "service": "infrastructure",
+    "service": "infrastructure-sls",
     "serviceObject": {
-      "name": "infrastructure"
+      "name": "infrastructure-sls"
     },
     "provider": {
       "stage": "dev",
@@ -11,7 +11,7 @@
       "name": "aws",
       "runtime": "nodejs8.10",
       "environment": {
-        "ACCOUNT_DYNAMODB_TABLE": "account-infrastructure-dev",
+        "ACCOUNT_DYNAMODB_TABLE": "account-infrastructure-sls-dev",
         "STAGE": "dev",
         "CLIENT_ID": "343828992572-behta3au9ktkp8387b3oecegjf982gf1.apps.googleusercontent.com",
         "CLIENT_SECRET": "NstjpTp_kVRZZnkvhoFInh9L",
@@ -144,6 +144,7 @@
           },
           "CognitoIdentityPool": {
             "Type": "AWS::Cognito::IdentityPool",
+            "DeletionPolicy": "Delete",
             "Properties": {
               "IdentityPoolName": "devIdentityPool",
               "AllowUnauthenticatedIdentities": false,
@@ -164,6 +165,7 @@
           },
           "CognitoIdentityPoolRoles": {
             "Type": "AWS::Cognito::IdentityPoolRoleAttachment",
+            "DeletionPolicy": "Delete",
             "Properties": {
               "IdentityPoolId": {
                 "Ref": "CognitoIdentityPool"
@@ -293,12 +295,14 @@
           },
           "ServerlessApiGateway": {
             "Type": "AWS::ApiGateway::RestApi",
+            "DeletionPolicy": "Delete",
             "Properties": {
               "Name": "serverlessApiGateway"
             }
           },
           "CognitoAuthorizer": {
             "Type": "AWS::ApiGateway::Authorizer",
+            "DeletionPolicy": "Delete",
             "Properties": {
               "Name": "CognitoAuthorizer",
               "AuthorizerResultTtlInSeconds": 300,
@@ -312,7 +316,7 @@
                 }
               ],
               "RestApiId": {
-                "Fn::ImportValue": "ApiGateway-restApiId"
+                "Ref": "ServerlessApiGateway"
               },
               "Type": "COGNITO_USER_POOLS"
             }
@@ -507,6 +511,7 @@
         },
         "CognitoIdentityPool": {
           "Type": "AWS::Cognito::IdentityPool",
+          "DeletionPolicy": "Delete",
           "Properties": {
             "IdentityPoolName": "devIdentityPool",
             "AllowUnauthenticatedIdentities": false,
@@ -527,6 +532,7 @@
         },
         "CognitoIdentityPoolRoles": {
           "Type": "AWS::Cognito::IdentityPoolRoleAttachment",
+          "DeletionPolicy": "Delete",
           "Properties": {
             "IdentityPoolId": {
               "Ref": "CognitoIdentityPool"
@@ -656,12 +662,14 @@
         },
         "ServerlessApiGateway": {
           "Type": "AWS::ApiGateway::RestApi",
+          "DeletionPolicy": "Delete",
           "Properties": {
             "Name": "serverlessApiGateway"
           }
         },
         "CognitoAuthorizer": {
           "Type": "AWS::ApiGateway::Authorizer",
+          "DeletionPolicy": "Delete",
           "Properties": {
             "Name": "CognitoAuthorizer",
             "AuthorizerResultTtlInSeconds": 300,
@@ -675,7 +683,7 @@
               }
             ],
             "RestApiId": {
-              "Fn::ImportValue": "ApiGateway-restApiId"
+              "Ref": "ServerlessApiGateway"
             },
             "Type": "COGNITO_USER_POOLS"
           }
@@ -729,7 +737,7 @@
     "layers": {}
   },
   "package": {
-    "artifactDirectoryName": "serverless/infrastructure/dev/1572434322047-2019-10-30T11:18:42.047Z",
+    "artifactDirectoryName": "serverless/infrastructure-sls/dev/1572965736252-2019-11-05T14:55:36.252Z",
     "artifact": ""
   }
 }

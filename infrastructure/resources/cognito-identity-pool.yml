@@ -3,6 +3,7 @@ Resources:
  
   CognitoIdentityPool:
     Type: AWS::Cognito::IdentityPool
+    DeletionPolicy: Delete
     Properties:
       # Generate a name based on the stage
       IdentityPoolName: ${self:provider.environment.STAGE}IdentityPool
@@ -18,6 +19,7 @@ Resources:
   # IAM roles
   CognitoIdentityPoolRoles:
     Type: AWS::Cognito::IdentityPoolRoleAttachment
+    DeletionPolicy: Delete
     Properties:
       IdentityPoolId:
         Ref: CognitoIdentityPool

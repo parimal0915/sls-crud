@@ -23,6 +23,9 @@ createAccount:
         path: createaccount
         method: post
         cors: true
+        request:
+          schema:
+            application/json: ${file(models/create_request.json)}
 updateAccount:
   handler: handler.updateAccount
   events:

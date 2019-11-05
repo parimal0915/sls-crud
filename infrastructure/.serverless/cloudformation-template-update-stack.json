@@ -123,6 +123,7 @@
     },
     "CognitoIdentityPool": {
       "Type": "AWS::Cognito::IdentityPool",
+      "DeletionPolicy": "Delete",
       "Properties": {
         "IdentityPoolName": "devIdentityPool",
         "AllowUnauthenticatedIdentities": false,
@@ -143,6 +144,7 @@
     },
     "CognitoIdentityPoolRoles": {
       "Type": "AWS::Cognito::IdentityPoolRoleAttachment",
+      "DeletionPolicy": "Delete",
       "Properties": {
         "IdentityPoolId": {
           "Ref": "CognitoIdentityPool"
@@ -272,12 +274,14 @@
     },
     "ServerlessApiGateway": {
       "Type": "AWS::ApiGateway::RestApi",
+      "DeletionPolicy": "Delete",
       "Properties": {
         "Name": "serverlessApiGateway"
       }
     },
     "CognitoAuthorizer": {
       "Type": "AWS::ApiGateway::Authorizer",
+      "DeletionPolicy": "Delete",
       "Properties": {
         "Name": "CognitoAuthorizer",
         "AuthorizerResultTtlInSeconds": 300,
@@ -291,7 +295,7 @@
           }
         ],
         "RestApiId": {
-          "Fn::ImportValue": "ApiGateway-restApiId"
+          "Ref": "ServerlessApiGateway"
         },
         "Type": "COGNITO_USER_POOLS"
       }

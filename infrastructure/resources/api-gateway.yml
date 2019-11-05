@@ -1,8 +1,17 @@
 Resources:
   ServerlessApiGateway:
     Type: AWS::ApiGateway::RestApi
+    DeletionPolicy: Delete
     Properties:
       Name: serverlessApiGateway
+
+  # RequestValidatorAll:
+  #   Type: AWS::ApiGateway::RequestValidator
+  #   Properties:
+  #     Name: all
+  #     RestApiId: !Ref ServerlessApiGateway
+  #     ValidateRequestBody: true
+  #     ValidateRequestParameters: true
 
 Outputs:
   apiGatewayRestApiId:
